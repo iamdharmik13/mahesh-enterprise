@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiMenu, FiX, FiShoppingCart, FiUser, FiLogOut, FiPackage, FiPhone, FiSearch } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
@@ -23,6 +23,7 @@ export default function Navbar() {
   const [cartOpen, setCartOpen] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const { user, isAdmin, signInWithGoogle, logout } = useAuthState();
   const { count } = useCart();
   const userRef = useRef<HTMLDivElement>(null);
@@ -74,12 +75,14 @@ export default function Navbar() {
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
               {/* User avatar circle */}
               <button
-                onClick={() => user ? setUserMenu(!userMenu) : signInWithGoogle()}
+                onClick={() => user ? setUserMenu(!userMenu) : router.push("/auth")}
                 style={{ width: "34px", height: "34px", borderRadius: "50%", border: "2px solid rgba(255,255,255,0.4)", background: user ? "#1d4ed8" : "rgba(255,255,255,0.15)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
               >
-                {initials
-                  ? <span style={{ fontSize: "11px", fontWeight: 800, color: "#fff", letterSpacing: "0.5px" }}>{initials}</span>
-                  : <FiUser size={15} color="rgba(255,255,255,0.8)" />
+                {user?.photoURL
+                  ? <img src={user.photoURL} alt="" style={{ width: "30px", height: "30px", borderRadius: "50%", objectFit: "cover" }} />
+                  : initials
+                    ? <span style={{ fontSize: "11px", fontWeight: 800, color: "#fff" }}>{initials}</span>
+                    : <FiUser size={15} color="rgba(255,255,255,0.8)" />
                 }
               </button>
 
@@ -257,14 +260,16 @@ export default function Navbar() {
                   style={{
                     width: "38px", height: "38px", borderRadius: "50%",
                     border: user ? "2px solid #2563eb" : "1px solid #e8e6e0",
-                    background: user ? "#2563eb" : "#f5f4f0",
+                    background: user ? "#eff6ff" : "#f5f4f0",
                     cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
                     overflow: "hidden", flexShrink: 0,
                   }}
                 >
-                  {initials
-                    ? <span style={{ fontSize: "13px", fontWeight: 800, color: "#fff", letterSpacing: "0.5px" }}>{initials}</span>
-                    : <FiUser size={16} color="#6b7280" />
+                  {user?.photoURL
+                    ? <img src={user.photoURL} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    : initials
+                      ? <span style={{ fontSize: "12px", fontWeight: 800, color: "#2563eb" }}>{initials}</span>
+                      : <FiUser size={16} color="#6b7280" />
                   }
                 </button>
 
@@ -274,7 +279,10 @@ export default function Navbar() {
                       style={{ position: "absolute", top: "46px", right: 0, background: "#fff", border: "1px solid #e8e6e0", borderRadius: "12px", padding: "8px", minWidth: "190px", zIndex: 100, boxShadow: "0 8px 24px rgba(0,0,0,0.1)" }}>
                       <div style={{ padding: "8px 12px 10px", borderBottom: "1px solid #f0efe9" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
-                          <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 800, color: "#fff", flexShrink: 0 }}>{initials}</div>
+                          {user.photoURL
+                            ? <img src={user.photoURL} alt="" style={{ width: "28px", height: "28px", borderRadius: "50%" }} />
+                            : <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: "#eff6ff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 800, color: "#2563eb" }}>{initials}</div>
+                          }
                           <div>
                             <div style={{ fontSize: "13px", fontWeight: 700, color: "#1a1a1a" }}>{user.displayName}</div>
                             <div style={{ fontSize: "10px", color: "#9ca3af" }}>{user.email}</div>
