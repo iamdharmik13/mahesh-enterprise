@@ -52,8 +52,8 @@ export default function CartDrawer({ open, onClose }: { open: boolean; onClose: 
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                   {items.map(item => (
                     <div key={item.id} style={{ background: "#f9fafb", border: "1px solid #e8e6e0", borderRadius: "12px", padding: "12px", display: "flex", gap: "12px" }}>
-                      <div style={{ width: "54px", height: "54px", background: "#fff", borderRadius: "8px", border: "1px solid #e8e6e0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "22px", flexShrink: 0 }}>
-                        {item.imageUrl || "🔩"}
+                      <div style={{ width: "54px", height: "54px", background: "#fff", borderRadius: "8px", border: "1px solid #e8e6e0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "22px", flexShrink: 0, overflow: "hidden" }}>
+                        {item.imageUrl?.startsWith("http") ? <img src={item.imageUrl} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <span>🔩</span>}
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <div style={{ fontSize: "13px", fontWeight: 700, color: "#1a1a1a", marginBottom: "2px" }}>{item.name}</div>
