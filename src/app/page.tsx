@@ -16,10 +16,12 @@ const CATS = [
 ];
 
 const FEATURED = [
-  { id: "f1", icon: "🔩", name: "Heavy Duty Gate Hinge (CI)", category: "Hinges & Mijagara", price: "₹280", priceNum: 280, mrp: "₹350", badge: "In Stock", badgeType: "green" },
-  { id: "f2", icon: "⚙️", name: "MS Sliding Gate Roller", category: "Gate Rollers", price: "₹450", priceNum: 450, mrp: "₹600", badge: "Featured", badgeType: "blue" },
-  { id: "f3", icon: "🏰", name: "Rajwadi Finial Set (×4)", category: "Casting Designs", price: "₹620", priceNum: 620, mrp: "₹800", badge: "Hot", badgeType: "red" },
-  { id: "f4", icon: "🔧", name: "Anchor Fastener D-Hook", category: "Nuts & Bolts", price: "₹45", priceNum: 45, mrp: "₹60", badge: "In Stock", badgeType: "green" },
+  { id: "f1", imageUrl: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=500&q=85", name: "Heavy Duty Gate Hinge (CI)", category: "Hinges & Mijagara", price: "₹280", priceNum: 280, mrp: "₹350", badge: "20% OFF", badgeType: "red", discount: "20% OFF" },
+  { id: "f2", imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=85", name: "MS Sliding Gate Roller", category: "Gate Rollers", price: "₹450", priceNum: 450, mrp: "₹600", badge: "25% OFF", badgeType: "red", discount: "25% OFF" },
+  { id: "f3", imageUrl: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=500&q=85", name: "Rajwadi Finial Set (×4)", category: "Casting Designs", price: "₹620", priceNum: 620, mrp: "₹800", badge: "22% OFF", badgeType: "red", discount: "22% OFF" },
+  { id: "f4", imageUrl: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=500&q=85", name: "Anchor Fastener D-Hook", category: "Nuts & Bolts", price: "₹45", priceNum: 45, mrp: "₹60", badge: "25% OFF", badgeType: "red", discount: "25% OFF" },
+  { id: "f5", imageUrl: "https://images.unsplash.com/photo-1545259742-f5e4c544ea94?w=500&q=85", name: "Industrial Bolt Set (100pc)", category: "Nuts & Bolts", price: "₹180", priceNum: 180, mrp: "₹240", badge: "25% OFF", badgeType: "red", discount: "25% OFF" },
+  { id: "f6", imageUrl: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=500&q=85", name: "Nylon Gate Roller (Heavy)", category: "Gate Rollers", price: "₹220", priceNum: 220, mrp: "₹280", badge: "21% OFF", badgeType: "red", discount: "21% OFF" },
 ];
 
 const TESTIMONIALS = [
@@ -37,7 +39,7 @@ const badgeColors: Record<string, { bg: string; color: string }> = {
 export default function HomePage() {
   const { addItem } = useCart();
   const handleAdd = (p: typeof FEATURED[0]) => {
-    addItem({ id: p.id, name: p.name, price: p.price, priceNum: p.priceNum, category: p.category, imageUrl: p.icon });
+    addItem({ id: p.id, name: p.name, price: p.price, priceNum: p.priceNum, category: p.category, imageUrl: p.imageUrl });
     toast.success(`${p.name} added to cart!`);
   };
 
@@ -135,41 +137,51 @@ export default function HomePage() {
       </section>
 
       {/* ─── FEATURED PRODUCTS ─── */}
-      <section className="section-pad" style={{ background: "#fff" }}>
+      <section className="section-pad" style={{ background: "#f5f4f0" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
-            <h2 className="section-title">Featured Products</h2>
-            <Link href="/products" style={{ fontSize: "13px", fontWeight: 600, color: "#2563eb", textDecoration: "none" }}>View all 500+ →</Link>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "24px" }}>
+            <div>
+              <div style={{ fontSize: "11px", fontWeight: 700, color: "#2563eb", textTransform: "uppercase", letterSpacing: "1.5px", marginBottom: "4px" }}>🔥 Best Sellers</div>
+              <h2 className="section-title" style={{ margin: 0 }}>Featured Products</h2>
+            </div>
+            <Link href="/products" style={{ fontSize: "13px", fontWeight: 700, color: "#2563eb", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px", border: "1px solid #bfdbfe", borderRadius: "8px", padding: "8px 14px", background: "#fff" }}>View all 500+ →</Link>
           </div>
-          <div className="product-grid">
-            {FEATURED.map((p, i) => {
-              const bc = badgeColors[p.badgeType];
-              return (
-                <motion.div key={p.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
-                  <div style={{ background: "#fff", border: "1px solid #e8e6e0", borderRadius: "12px", overflow: "hidden", transition: "transform 0.2s, box-shadow 0.2s", height: "100%" }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 8px 24px rgba(0,0,0,0.08)"; }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "none"; }}>
-                    <div style={{ height: "clamp(110px,20vw,140px)", background: "#f9fafb", display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
-                      <span style={{ fontSize: "clamp(36px,8vw,52px)" }}>{p.icon}</span>
-                      <span style={{ position: "absolute", top: "8px", left: "8px", background: bc.bg, color: bc.color, fontSize: "9px", fontWeight: 700, padding: "3px 7px", borderRadius: "5px" }}>{p.badge}</span>
-                    </div>
-                    <div style={{ padding: "12px" }}>
-                      <div style={{ fontSize: "9px", fontWeight: 700, color: "#9ca3af", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "3px" }}>{p.category}</div>
-                      <div style={{ fontSize: "clamp(11px,2vw,13px)", fontWeight: 700, color: "#1a1a1a", marginBottom: "6px", lineHeight: 1.3 }}>{p.name}</div>
-                      <div style={{ fontSize: "clamp(13px,3vw,16px)", fontWeight: 800, color: "#1a1a1a" }}>
-                        {p.price} <span style={{ fontSize: "11px", fontWeight: 400, color: "#9ca3af", textDecoration: "line-through" }}>{p.mrp}</span>
-                      </div>
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "10px" }}>
-                        <span style={{ color: "#f59e0b", fontSize: "11px" }}>★★★★★</span>
-                        <button onClick={() => handleAdd(p)} style={{ background: "#2563eb", color: "#fff", border: "none", borderRadius: "7px", padding: "6px 12px", fontSize: "11px", fontWeight: 700, cursor: "pointer", fontFamily: "'Plus Jakarta Sans',sans-serif" }}>
-                          + Add
-                        </button>
-                      </div>
-                    </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "16px" }}>
+            {FEATURED.map((p, i) => (
+              <motion.div key={p.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}>
+                <div style={{ background: "#fff", borderRadius: "12px", overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", transition: "transform 0.2s, box-shadow 0.2s", height: "100%", display: "flex", flexDirection: "column", cursor: "pointer" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 32px rgba(0,0,0,0.12)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 1px 4px rgba(0,0,0,0.06)"; }}>
+                  {/* Image Box */}
+                  <div style={{ position: "relative", height: "180px", background: "#f9fafb", overflow: "hidden" }}>
+                    <img src={p.imageUrl} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.3s" }}
+                      onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
+                      onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
+                      onError={e => { (e.currentTarget as HTMLImageElement).src = "https://placehold.co/300x200/f9fafb/9ca3af?text=Product"; }} />
+                    {/* Discount badge */}
+                    <div style={{ position: "absolute", top: "10px", left: "10px", background: "#ef4444", color: "#fff", fontSize: "10px", fontWeight: 800, padding: "3px 8px", borderRadius: "6px", letterSpacing: "0.3px" }}>{p.discount}</div>
                   </div>
-                </motion.div>
-              );
-            })}
+                  {/* Info */}
+                  <div style={{ padding: "12px 14px 14px", flex: 1, display: "flex", flexDirection: "column", gap: "4px" }}>
+                    <div style={{ fontSize: "9px", fontWeight: 700, color: "#2563eb", textTransform: "uppercase", letterSpacing: "0.8px" }}>{p.category}</div>
+                    <div style={{ fontSize: "13px", fontWeight: 700, color: "#1a1a1a", lineHeight: 1.35, minHeight: "36px" }}>{p.name}</div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "4px" }}>
+                      <span style={{ color: "#f59e0b", fontSize: "11px", letterSpacing: "-1px" }}>★★★★★</span>
+                      <span style={{ fontSize: "10px", color: "#9ca3af" }}>(42)</span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginTop: "2px" }}>
+                      <span style={{ fontSize: "18px", fontWeight: 800, color: "#1a1a1a" }}>{p.price}</span>
+                      <span style={{ fontSize: "12px", color: "#9ca3af", textDecoration: "line-through" }}>{p.mrp}</span>
+                    </div>
+                    <button onClick={() => handleAdd(p)} style={{ marginTop: "10px", width: "100%", background: "#2563eb", color: "#fff", border: "none", borderRadius: "8px", padding: "9px", fontSize: "12px", fontWeight: 700, cursor: "pointer", fontFamily: "'Plus Jakarta Sans',sans-serif", display: "flex", alignItems: "center", justifyContent: "center", gap: "6px", transition: "background 0.2s" }}
+                      onMouseEnter={e => (e.currentTarget.style.background = "#1d4ed8")}
+                      onMouseLeave={e => (e.currentTarget.style.background = "#2563eb")}>
+                      🛒 Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
