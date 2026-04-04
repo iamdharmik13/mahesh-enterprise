@@ -10,21 +10,21 @@ import toast from "react-hot-toast";
 const CATS = ["All", "Hinges & Mijagara", "Gate Rollers", "Casting Designs", "Laser Cutting", "Nuts & Bolts", "Welding", "MS/SS Items"];
 
 const DEMO: Product[] = [
-  { id:"p1", name:"Heavy Duty Gate Hinge (CI)", category:"Hinges & Mijagara", description:"Cast iron heavy duty gate hinge for main gates. All sizes available.", imageUrl:"🔩", featured:true, price:"₹280" },
-  { id:"p2", name:"MS Sliding Gate Roller", category:"Gate Rollers", description:"Durable MS sliding gate roller with smooth operation.", imageUrl:"⚙️", featured:true, price:"₹450" },
-  { id:"p3", name:"Rajwadi Finial Set (×4)", category:"Casting Designs", description:"Ornamental royal-style finials for gates and fences.", imageUrl:"🏰", featured:true, price:"₹620" },
-  { id:"p4", name:"Custom Laser Cut Panel", category:"Laser Cutting", description:"CNC laser cutting on MS/SS sheets, any design.", imageUrl:"✨", featured:false, price:"Quote" },
-  { id:"p5", name:"Anchor Fastener D-Hook", category:"Nuts & Bolts", description:"Heavy duty wall anchors and D-hooks for structural mounting.", imageUrl:"🔧", featured:false, price:"₹45" },
-  { id:"p6", name:"Trolley Caster Wheel", category:"Gate Rollers", description:"360° swivel caster with polyurethane wheel for heavy loads.", imageUrl:"🛞", featured:false, price:"₹380" },
-  { id:"p7", name:"Mangalam Welding Rod", category:"Welding", description:"High quality welding electrodes, all gauges.", imageUrl:"🔥", featured:false, price:"₹72/kg" },
-  { id:"p8", name:"Self Drilling Screw (Pack)", category:"Nuts & Bolts", description:"Self drilling tek screws for roofing and cladding.", imageUrl:"🪛", featured:false, price:"₹120/pack" },
-  { id:"p9", name:"MS Foundation Plate", category:"MS/SS Items", description:"Structural base plates for fabrication and construction.", imageUrl:"🔲", featured:false, price:"₹150" },
-  { id:"p10", name:"Nylon Gate Roller", category:"Gate Rollers", description:"Quiet and smooth nylon gate roller for residential gates.", imageUrl:"⚙️", featured:false, price:"₹220" },
-  { id:"p11", name:"Collapsible Gate Fitting Set", category:"Hinges & Mijagara", description:"Complete fitting set for accordion/collapsible security gates.", imageUrl:"🔩", featured:false, price:"₹550/set" },
-  { id:"p12", name:"MS/SS Round Ball Finial", category:"Casting Designs", description:"Decorative ball finials for fencing and gate tops.", imageUrl:"🏰", featured:false, price:"₹95" },
+  { id: "p1", name: "Heavy Duty Gate Hinge (CI)", category: "Hinges & Mijagara", description: "Cast iron heavy duty gate hinge for main gates. All sizes available.", imageUrl: "🔩", featured: true, price: "₹280" },
+  { id: "p2", name: "MS Sliding Gate Roller", category: "Gate Rollers", description: "Durable MS sliding gate roller with smooth operation.", imageUrl: "⚙️", featured: true, price: "₹450" },
+  { id: "p3", name: "Rajwadi Finial Set (×4)", category: "Casting Designs", description: "Ornamental royal-style finials for gates and fences.", imageUrl: "🏰", featured: true, price: "₹620" },
+  { id: "p4", name: "Custom Laser Cut Panel", category: "Laser Cutting", description: "CNC laser cutting on MS/SS sheets, any design.", imageUrl: "✨", featured: false, price: "Quote" },
+  { id: "p5", name: "Anchor Fastener D-Hook", category: "Nuts & Bolts", description: "Heavy duty wall anchors and D-hooks for structural mounting.", imageUrl: "🔧", featured: false, price: "₹45" },
+  { id: "p6", name: "Trolley Caster Wheel", category: "Gate Rollers", description: "360° swivel caster with polyurethane wheel for heavy loads.", imageUrl: "🛞", featured: false, price: "₹380" },
+  { id: "p7", name: "Mangalam Welding Rod", category: "Welding", description: "High quality welding electrodes, all gauges.", imageUrl: "🔥", featured: false, price: "₹72/kg" },
+  { id: "p8", name: "Self Drilling Screw (Pack)", category: "Nuts & Bolts", description: "Self drilling tek screws for roofing and cladding.", imageUrl: "🪛", featured: false, price: "₹120/pack" },
+  { id: "p9", name: "MS Foundation Plate", category: "MS/SS Items", description: "Structural base plates for fabrication and construction.", imageUrl: "🔲", featured: false, price: "₹150" },
+  { id: "p10", name: "Nylon Gate Roller", category: "Gate Rollers", description: "Quiet and smooth nylon gate roller for residential gates.", imageUrl: "⚙️", featured: false, price: "₹220" },
+  { id: "p11", name: "Collapsible Gate Fitting Set", category: "Hinges & Mijagara", description: "Complete fitting set for accordion/collapsible security gates.", imageUrl: "🔩", featured: false, price: "₹550/set" },
+  { id: "p12", name: "MS/SS Round Ball Finial", category: "Casting Designs", description: "Decorative ball finials for fencing and gate tops.", imageUrl: "🏰", featured: false, price: "₹95" },
 ];
 
-const priceNum = (p: string) => parseInt(p.replace(/[^0-9]/g,"")) || 0;
+const priceNum = (p: string) => parseInt(p.replace(/[^0-9]/g, "")) || 0;
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>(DEMO);
@@ -33,7 +33,7 @@ export default function ProductsPage() {
   const [selected, setSelected] = useState<Product | null>(null);
   const { addItem } = useCart();
 
-  useEffect(() => { getProducts().then(d => { if (d.length > 0) setProducts(d); }).catch(()=>{}); }, []);
+  useEffect(() => { getProducts().then(d => { if (d.length > 0) setProducts(d); }).catch(() => { }); }, []);
 
   const filtered = products.filter(p => {
     const mc = cat === "All" || p.category === cat;
@@ -85,8 +85,8 @@ export default function ProductsPage() {
                 <div onClick={() => setSelected(p)} style={{ background: "#fff", border: "1px solid #e8e6e0", borderRadius: "12px", overflow: "hidden", cursor: "pointer", transition: "transform 0.2s, box-shadow 0.2s", height: "100%" }}
                   onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 6px 20px rgba(0,0,0,0.07)"; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = ""; (e.currentTarget as HTMLDivElement).style.boxShadow = ""; }}>
-                  <div style={{ height: "clamp(100px,20vw,130px)", background: "#f9fafb", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "clamp(36px,8vw,48px)", position: "relative" }}>
-                    {p.imageUrl?.startsWith("http") ? <img src={p.imageUrl} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.85 }} /> : <span>{p.imageUrl || "📦"}</span>}
+                  <div style={{ height: "180px", background: "#f9fafb", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
+                    {p.imageUrl?.startsWith("http") ? <img src={p.imageUrl} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.85 }} /> : <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}><span style={{ fontSize: "32px" }}>📦</span><span style={{ fontSize: "10px", color: "#9ca3af", fontWeight: 600, fontFamily: "sans-serif" }}>No Image</span></div>}
                     {p.featured && <span style={{ position: "absolute", top: "7px", left: "7px", background: "#eff6ff", color: "#1d4ed8", fontSize: "8px", fontWeight: 700, padding: "2px 6px", borderRadius: "5px" }}>Featured</span>}
                   </div>
                   <div style={{ padding: "10px" }}>
@@ -112,7 +112,7 @@ export default function ProductsPage() {
             <motion.div initial={{ scale: 0.92, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.92, opacity: 0 }}
               onClick={e => e.stopPropagation()}
               style={{ background: "#fff", borderRadius: "16px", maxWidth: "480px", width: "100%", overflow: "hidden" }}>
-              <div style={{ height: "clamp(140px,30vw,200px)", background: "#f9fafb", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "clamp(52px,12vw,72px)", position: "relative" }}>
+              <div style={{ height: "240px", background: "#f9fafb", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
                 {selected.imageUrl?.startsWith("http") ? <img src={selected.imageUrl} alt={selected.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <span>{selected.imageUrl || "📦"}</span>}
                 <button onClick={() => setSelected(null)} style={{ position: "absolute", top: "12px", right: "12px", width: "32px", height: "32px", background: "#fff", border: "1px solid #e8e6e0", borderRadius: "50%", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <FiX size={16} color="#374151" />
