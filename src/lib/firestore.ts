@@ -12,6 +12,10 @@ export interface Product {
   category: string;
   description: string;
   price?: string;
+  mrp?: string;
+  discount?: string;
+  badge?: string;
+  stock?: "in_stock" | "out_of_stock" | "limited";
   imageUrl: string;
   featured: boolean;
   createdAt?: Timestamp;
@@ -58,27 +62,15 @@ export async function getFeaturedProducts(): Promise<Product[]> {
   return snap.docs.map(d => ({ id: d.id, ...d.data() } as Product));
 }
 
-export async function addProduct(product: Omit<Product, "id" | "createdAt">, imageFile?: File): Promise<string> {
-  let imageUrl = product.imageUrl;
-  if (imageFile) {
-    const storageRef = ref(storage, `products/${Date.now()}_${imageFile.name}`);
-    await uploadBytes(storageRef, imageFile);
-    imageUrl = await getDownloadURL(storageRef);
-  }
+export async function addProduct(product: Omit<Product, "id" | "createdAt">): Promise<string> {
   const docRef = await addDoc(collection(db, "products"), {
-    ...product, imageUrl, createdAt: serverTimestamp(),
+    ...product, createdAt: serverTimestamp(),
   });
   return docRef.id;
 }
 
-export async function updateProduct(id: string, product: Partial<Product>, imageFile?: File): Promise<void> {
-  let imageUrl = product.imageUrl;
-  if (imageFile) {
-    const storageRef = ref(storage, `products/${Date.now()}_${imageFile.name}`);
-    await uploadBytes(storageRef, imageFile);
-    imageUrl = await getDownloadURL(storageRef);
-  }
-  await updateDoc(doc(db, "products", id), { ...product, imageUrl });
+export async function updateProduct(id: string, product: Partial<Product>): Promise<void> {
+  await updateDoc(doc(db, "products", id), { ...product });
 }
 
 export async function deleteProduct(id: string): Promise<void> {

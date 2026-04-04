@@ -86,8 +86,9 @@ export default function ProductsPage() {
                   onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 6px 20px rgba(0,0,0,0.07)"; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = ""; (e.currentTarget as HTMLDivElement).style.boxShadow = ""; }}>
                   <div style={{ height: "180px", background: "#f9fafb", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
-                    {p.imageUrl?.startsWith("http") ? <img src={p.imageUrl} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.85 }} /> : <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}><span style={{ fontSize: "32px" }}>📦</span><span style={{ fontSize: "10px", color: "#9ca3af", fontWeight: 600, fontFamily: "sans-serif" }}>No Image</span></div>}
-                    {p.featured && <span style={{ position: "absolute", top: "7px", left: "7px", background: "#eff6ff", color: "#1d4ed8", fontSize: "8px", fontWeight: 700, padding: "2px 6px", borderRadius: "5px" }}>Featured</span>}
+                    {p.imageUrl?.startsWith("http") ? <img src={p.imageUrl} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}><span style={{ fontSize: "32px" }}>📦</span><span style={{ fontSize: "10px", color: "#9ca3af", fontWeight: 600, fontFamily: "sans-serif" }}>No Image</span></div>}
+                    {p.discount && <span style={{ position: "absolute", top: "8px", left: "8px", background: "#ef4444", color: "#fff", fontSize: "10px", fontWeight: 800, padding: "3px 8px", borderRadius: "6px" }}>{p.discount}</span>}
+                    {p.badge && <span style={{ position: "absolute", top: "8px", right: "8px", background: "#1d4ed8", color: "#fff", fontSize: "9px", fontWeight: 700, padding: "3px 7px", borderRadius: "5px" }}>{p.badge}</span>}
                   </div>
                   <div style={{ padding: "10px" }}>
                     <div style={{ fontSize: "9px", color: "#9ca3af", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "3px" }}>{p.category}</div>
